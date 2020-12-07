@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import javax.websocket.server.PathParam;
-
 import com.example.demo.utils.Printer;
 
 import org.springframework.beans.factory.annotation.Autowired;
