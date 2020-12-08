@@ -29,4 +29,10 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDTO> list() {
         return null;
     }
+
+    @Override
+    public int crawling(String string) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

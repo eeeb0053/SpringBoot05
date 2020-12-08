@@ -9,12 +9,18 @@
 <body>
     <h2>HOME</h2>
     <a href="#" id="write">글 쓰기</a><br>
+    <a href="#" id="crawling">웹 크롤링</a><br>
     <a href="#" id="list">글 목록</a><br>
     <a href="#" id="detail">글 상세</a><br>
     <a href="#" id="update">글 수정</a><br>
     <script>
         document.getElementById('write').addEventListener("click", e => {
             location.href = '/move/articles/write'
+        })
+        document.getElementById('crawling').addEventListener("click", e => {
+            $.getJSON('/articles/crawling', d => {
+                alert(`등록된 게시글 수: ${d.count}`)
+            })
         })
         document.getElementById('list').addEventListener("click", e => {
             location.href = '/move/articles/list'
