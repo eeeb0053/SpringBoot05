@@ -46,7 +46,12 @@
                 dataType: 'json',
                 contentType: 'application/json',
                 success: d => {
-
+                    if(d.message === 'SUCCESS'){
+                        location.href = "/move/articles/list"
+                    }else{
+                        alert(`글쓰기 실패`)
+                        location.href = "/move/articles/write"
+                    }
                 },
                 error: e => {
                     alert(`글쓰기 에러 ${e}`)
