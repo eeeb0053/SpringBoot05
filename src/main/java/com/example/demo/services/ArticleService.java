@@ -10,5 +10,6 @@ import org.springframework.stereotype.Component;
 public interface ArticleService {
 	public int write(ArticleDTO article);
 	public List<ArticleDTO> list();
-	public int crawling(String string);
+	public int crawling(String url);
+	public int count();
 }

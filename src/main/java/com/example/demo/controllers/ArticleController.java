@@ -16,28 +16,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ArticleController {
-    @Autowired ArticleService articleService;
+public class ArticleController{
     @Autowired Printer printer;
+    @Autowired ArticleService articleService;
     @Autowired Proxy px;
+    
     @PostMapping("/articles")
-    public Map<?, ?>  write(@RequestBody ArticleDTO article){
+    public Map<?,?> write(@RequestBody ArticleDTO article){
         var map = px.hashmap();
         map.put("message", px.message(articleService.write(article)));
+
+        
         return map;
     }
     @GetMapping("/articles")
-    public Map<?, ?> list(){
+    public Map<?,?> list(){
+        printer.accept("---- 목록 진입 ----");
         var map = px.hashmap();
-        map.put("list", articleService.list());
+        List<ArticleDTO> l = articleService.list();
+        System.out.println("목록 수: "+l.size());
+        map.put("list", l);
+        map.put("count", articleService.count());
+
         return map;
     }
     @GetMapping("/articles/crawling/{site}")
-    public Map<?, ?> crawling(@PathVariable String site){
+    public Map<?,?> crawling(@PathVariable String site){
         var map = px.hashmap();
-        if(px.equals(site, "bugs")){
-            map.put("count", articleService.crawling("https://music.bugs.co.kr/recomreview?&order=listorder&page=2"));
+        var count = articleService.count();
+        if(count == 0){
+            switch(site){
+                case "bugs":
+                map.put("count", articleService.crawling("https://music.bugs.co.kr/recomreview?&order=listorder&page=2"));
+                break;
+            }
+        }else{
+            map.put("count", count);
         }
         return map;
     }
+    
 }
