@@ -16,5 +16,5 @@ public class Box<T> {
     public ArrayList<T> get(){return list;}
     public int size(){return list.size();}
     public String toString(){return list.toString();}
-    public void clear(){list.clear();}    
+    public void clear(){list.clear();}
 }

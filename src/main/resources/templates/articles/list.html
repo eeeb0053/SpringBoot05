@@ -40,13 +40,21 @@
                 for(; i < d.count; i++){
                     tr += '<tr>'
                         +'<td class="text-center">'+list[i].artNum+'</td>'
-                        +'<td class="text-center">'+list[i].title+'</td>'
+                        +'<td class="text-center"><a class="title" href="#" id="'+list[i].artNum+'">'+list[i].title+'</a></td>'
                         +'<td class="text-center">'+list[i].writerId+'</td>'
                         +'<td class="text-center">'+list[i].regDate+'</td>'
                         +'<td class="text-center">'+list[i].count+'</td>'
                         +'</tr>'
                 }
                 $('#tb').html(tr)
+                $('.title').each(function(i){
+                    $(this).click(e =>{
+                        e.preventDefault()
+                        alert(`${i}번의 ID: ${this.id}`)
+                        localStorage.setItem('artNum', `${this.id}`)
+                        location.href = '/move/articles/detail'
+                    })
+                })
             }else{
                 $(".artNum").text('조회결과 없음')
                 $(".title").text('조회결과 없음')

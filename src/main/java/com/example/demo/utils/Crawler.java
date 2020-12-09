@@ -22,7 +22,7 @@ public class Crawler extends Proxy {
                 article = new ArticleDTO();
                 article.setTitle(titles.get(i).text());
                 article.setContent(contents.get(i).text());
-                printer.accept("크롤링된 게시글 "+ i+"번 : " +article.toString());
+                printer.accept("크롤링된 게시글 "+i+"번 : " +article.toString());
                 artBox.add(article);
             }
         }catch(Exception e){
