@@ -12,4 +12,8 @@ public interface ArticleService {
 	public List<ArticleDTO> list();
 	public int crawling(String url);
 	public int count();
+	public ArticleDTO getArticleById(String artNum);
+	public int increaseCount(String artNum);
+	public int update(ArticleDTO article);
+	public int delete(ArticleDTO article);
 }

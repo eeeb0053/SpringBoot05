@@ -56,4 +56,24 @@ public class ArticleServiceImpl implements ArticleService {
     public int count() {
         return articleRepository.count();
     }
+
+    @Override
+    public ArticleDTO getArticleById(String artNum) {
+        return articleRepository.selectById(artNum);
+    }
+
+    @Override
+    public int increaseCount(String artNum) {
+        return articleRepository.updateCount(artNum);
+    }
+
+    @Override
+    public int update(ArticleDTO article) {
+        return articleRepository.update(article);
+    }
+
+    @Override
+    public int delete(ArticleDTO article) {
+        return articleRepository.delete(article);
+    }
 }

@@ -9,11 +9,15 @@ import com.example.demo.utils.Printer;
 import com.example.demo.utils.Proxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.var;
 
 @RestController
 public class ArticleController{
@@ -37,8 +41,18 @@ public class ArticleController{
         System.out.println("목록 수: "+l.size());
         map.put("list", l);
         map.put("count", articleService.count());
-
         return map;
+    }
+    @GetMapping("/articles/{artNum}/count")
+    public Map<?,?> increaseCount(@PathVariable String artNum){
+        var map = px.hashmap();
+        int result = articleService.increaseCount(artNum);
+        map.put("message", (result == 1) ? "SUCCESS": "FAILURE");
+        return map;
+    }
+    @GetMapping("/articles/{artNum}")
+    public ArticleDTO detail(@PathVariable String artNum){
+        return articleService.getArticleById(artNum);
     }
     @GetMapping("/articles/crawling/{site}")
     public Map<?,?> crawling(@PathVariable String site){
@@ -55,5 +69,17 @@ public class ArticleController{
         }
         return map;
     }
-    
+    @PutMapping("/articles")
+    public Map<?,?> update(@RequestBody ArticleDTO article){
+        var map = px.hashmap();
+        map.put("message", (articleService.update(article) == 1) ? "SUCCESS": "FAILURE");
+        return map;
+    }
+    @DeleteMapping("/articles")
+    public Map<?,?> delete(@RequestBody ArticleDTO article){
+        printer.accept("삭제할 ID >>> "+article.getArtNum());
+        var map = px.hashmap();
+        map.put("message", (articleService.delete(article) == 1) ? "SUCCESS": "FAILURE");
+        return map;
+    }
 }
